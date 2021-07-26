@@ -1,0 +1,84 @@
+.body{
+	 display: flex;
+	 flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header{
+	 display: flex;
+	 flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.head{
+	display:block;
+}
+
+.schedule{
+	display:block;
+}
+
+.bodyCell{
+	border: thick;
+	border-color: black;
+}
+
+.submit{
+	size: auto;
+	margin-left: 30px;
+	margin-right: 30px;
+}	
+
+#head {
+	
+	border: solid;
+}
+
+.com{
+    /*コレ追加*/
+    display: flex;
+	box-sizing:border-box
+}
+
+.input{
+
+    /*コレ追加*/
+    width: 300px;
+}
+
+.sche{
+	width:400px;
+}
+
+.cTime{
+	border: thick;
+	border-right: inset;
+	border-top: solid;
+	border-width: thin;
+	text-align: center;
+	vertical-align: text-top;
+	font-size: 10px;
+}
+
+
+#scheduleTable{
+	width:300px;
+}
+
+#t{
+	width:50px;
+}
+
+#m{
+	width:70px;
+}
+
+#d{
+	width:100px;
+}
+
+#p{
+	width:30px;
+}

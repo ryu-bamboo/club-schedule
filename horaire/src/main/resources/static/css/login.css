@@ -1,0 +1,14 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+
+#body{
+	width:500px;;
+	margin: auto;
+	margin-top: 100px;
+}
+
+
+#register{
+	margin-right: 0%;
+	margin-left: 50%;
+}

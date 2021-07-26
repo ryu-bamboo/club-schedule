@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>insert here</title>
+	<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/mainform.css">
+	<link rel="stylesheet" href="css/ref.css">
+	<link rel="stylesheet" href="css/request.css">
+	
+	<script type="text/javascript" src = "js/dateformatter.js"></script>
+	
+</head>
+<body class=body>
+	<header class = header>
+		<div class = head style = "margin-left:500px;">
+			<h1>horaire</h1>
+		<p id ="topDate"></p>
+		</div>
+		<div class = head style = "margin-left: 300px;">
+			<p>日付選択</p>
+			<form method="get">
+			  <input type="date"  id="date"  name="date" >
+			  <button type="submit">送信</button>
+			</form>
+		</div>
+	</header>
+
+	
+	<div class="com">		
+		<div class = "add" style = "margin-right: 20px;">
+			<h2>予定を追加する</h2>
+			<form method="POST">
+				<dl>
+					<dt>練習メニュー</dt>
+					<dd><input type="text" name="menu" id="menu" required>
+					<dt>詳細</dt>
+					<dd><textarea name ="detail" id ="detail" rows="10" cols="20" ></textarea>
+					<dt>開始時刻</dt>
+					<dd><input type="time" name="st" id="st"  required>
+					<dt>終了時刻</dt>
+					<dd><input type="time" name="ft" id="ft"  required>
+					<dd><input type="hidden" name="thisDate" id="thisDate">
+				</dl>
+				<p><input type="submit" value="送信" name="addData">
+			</form>
+			<button id="requstGet">リクエストを見る</button>
+			
+			<div class="req-popup" id="req-js-popup">
+				<div class="req-popup-inner" >
+					<div class="req-close-btn" id="req-js-close-btn"><i class="fas fa-times"></i></div>
+					<!--<a href="#"><img src="https://images-fe.ssl-images-amazon.com/images/I/81LYA%2BuufOL._CR218,250,1027,1027___SX375_.jpg" alt="ポップアップ画像"></a>-->
+					<table id="requestTable" border="1">
+						<tr><td>メニュー</td><td>詳細</td><td>練習時間</tr>
+						<tbody></tbody>
+					</table>
+				</div>
+			<div class="req-black-background" id="req-js-black-bg"></div>
+			</div>		
+			
+		</div>		
+		<div class="sche">
+			<table border="1" id=scheduleTable>
+				<thead id="head"></thead>
+				<tr><td id="t">時刻</td><td id="moment">開始時刻</td><td id ="m">メニュー</td><td id ="d">詳細</td><td id ="p">練習時間</tr>
+				<tbody id="body" ></tbody>
+			</table>
+		</div>
+		
+		<div>
+			<div class = "edit">
+			<h2>予定を編集する</h2>
+			<form method="POST" name = editData>
+				<dl>
+					<dt>練習メニュー</dt>
+					<dd><input type="text" name="edMenu" id="edMenu" required>
+					<dt>詳細</dt>
+					<dd><textarea name ="edDetail" id ="edDetail" rows="10" cols="20" ></textarea>
+					<dt>開始時刻</dt>
+					<dd><input type="time" name="edSt" id="edSt"  required>
+					<dt>終了時刻</dt>
+					<dd><input type="time" name="edFt" id="edFt"  required>
+					<dd><input type="hidden" name="edThisDate" id="edThisDate">
+				</dl>
+				<p><input class="submit" type="submit" value="編集" name = "editData"><input class="submit" type = "submit" value="削除" name="deleteData" ></p>
+			</form>
+			</div>
+			
+			<div style = "margin-top: 100px;">
+				
+				<form  action="#" method="POST" class="refForm" name="refForm">
+					<dl>
+						<dt>反省点</dt>
+						<dd><textarea name ="ref" id ="dref" rows="10" cols="20" required></textarea>
+						<dd><input type="hidden" name="refThisDate" id="refThisDate">
+					</dl>
+					<p></p><input type="submit" value="送信" id="refSubmit" name="refForm"><br><br>
+				</form>
+				<div class="popup" id="js-popup">
+						  <div class="popup-inner" >
+						    <div class="close-btn" id="js-close-btn"><i class="fas fa-times"></i></div>
+						    <!--<a href="#"><img src="https://images-fe.ssl-images-amazon.com/images/I/81LYA%2BuufOL._CR218,250,1027,1027___SX375_.jpg" alt="ポップアップ画像"></a>-->
+						  	<ul id="reflectionList"></ul>
+						  </div>
+						  <div class="black-background" id="js-black-bg"></div>
+					</div>
+				<button id="refOpen">振り返りを見る</button>
+				<div class="popup" id="js-popup">
+					<div class="popup-inner" >
+						<div class="close-btn" id="js-close-btn"><i class="fas fa-times"></i></div>
+						<!--<a href="#"><img src="https://images-fe.ssl-images-amazon.com/images/I/81LYA%2BuufOL._CR218,250,1027,1027___SX375_.jpg" alt="ポップアップ画像"></a>-->
+						<ul id="reflectionList"></ul>
+					</div>
+					<div class="black-background" id="js-black-bg"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	
+	<script src="js/mainform.js"></script>
+	
+	<script type="text/javascript" src="js/ref.js"></script>
+	
+	<script type="text/javascript" src="js/request.js"></script>
+	
+	
+	
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+			let menuList= /*[[${menuData}]]*/"test";
+			let startingTimes = /*[[${startingTime}]]*/ "test2";
+			let refList =  /*[[${refList}]]*/ "test3";
+			let requList =  /*[[${reqList}]]*/ "test4";
+		/*]]>*/
+		
+		let selectedByDateList = new Array();		//controllerでやるべき仕事（めんどくさいからやらないけど）
+		
+		let num = 0;
+		
+		for(i=0;i<menuList.length;i++){
+			
+			if(menuList[i].dateCol == result[ "year" ]+"-"+result["month"]+"-"+result["date"] || menuList[i].dateCol == result["date"]){
+				selectedByDateList[num]=menuList[i];
+				num++;
+			}
+		}
+		
+		let selectedRequList = new Array();
+		
+		num = 0;
+		
+		for(i=0;i<requList.length;i++){
+			
+			if(requList[i].date == result[ "year" ]+"-"+result["month"]+"-"+result["date"] || requList[i].date == result["date"]){
+				selectedRequList[num] =requList[i];
+				num++;
+			}
+		}
+		
+		let startingTime;
+		for(i=0;i<startingTimes.length;i++){
+			if(startingTimes[i].date == result[ "year" ]+"-"+result["month"]+"-"+result["date"] || startingTimes[i].date == result["date"]){
+				startingTime = new Date(startingTimes[i].date+" "+startingTimes[i].starting_time);
+				break;
+			}
+		}
+		
+		for(i=0;i<240;i++){
+			if(i%10 == 0){
+				let jikoku = document.getElementById("jikoku"+i);
+				
+				let varTime = startingTime;
+				let hours = varTime.getHours() + Math.floor((varTime.getMinutes()+i)/60);
+				let minutes = (varTime.getMinutes()+i)%60
+				
+				if(minutes == "0"){
+					minutes = "0"+0;
+				}
+				
+				jikoku.innerHTML= hours +":"+ minutes;
+			}
+		}
+		
+		console.log(startingTime);
+		document.getElementById("thisDate").setAttribute("value",dateFormat(startingTime, "yyyy-mm-dd"));
+		document.getElementById("edThisDate").setAttribute("value",dateFormat(startingTime, "yyyy-mm-dd"));
+		document.getElementById("refThisDate").setAttribute("value",dateFormat(startingTime, "yyyy-mm-dd"));
+		
+		
+		makeList(selectedByDateList,startingTime);
+		makeRefList();
+		makeRequList(selectedRequList);
+		
+	</script>
+	
+</body>
+</html>

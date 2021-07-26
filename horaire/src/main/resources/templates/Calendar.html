@@ -1,0 +1,44 @@
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>カレンダー設置ページ</title>
+
+<link rel="stylesheet" type="text/css" href="css/calendar.css">
+
+</head>
+<body>
+
+<span id="calenArea"></span>
+
+	<div id = "input">
+		<h2>練習日を追加</h2>
+		<form action=""  method="POST">
+			<dl>
+				<dt>日付</dt>
+				<dd><input type="date" name="setDate" id="setDate" required></dd>
+				<dt>練習開始時間</dt>
+				<dd><input type="time" name="setTime" id ="setTime" required></dd>
+				<dd><input type="submit" name="send" id = "send">
+				</dl>
+		</form>
+		
+		<h2>練習日を編集</h2>
+		<form action=""  method="POST">
+			<dl>
+				<dt>日付</dt>
+				<dd><input type="date" name="editDate" id="editDate" required></dd>
+				<dt>練習開始時間</dt>
+				<dd><input type="time" name="editTime" id ="setTime" required></dd>
+				</dl>
+				<p><input class="submit" type="submit" name ="edit" id= "edit" value="編集"><input class="submit" type="submit" name="delete" id = "delete" value="削除"></p>
+		</form>
+	</div>
+		
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		let startingTime = /*[[${startingTime}]]*/ "startTime";
+		/*]]>*/
+		
+	</script>
+	<script type="text/javascript" src="js/calendar.js"></script>
+</body>
+</html>
